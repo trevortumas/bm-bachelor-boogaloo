@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bachelor Boogaloo</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #0f1923;
+    --bg-mid: #162230;
+    --accent: #4a9eed;
+    --accent-light: #6bb5ff;
+    --cream: #e8ecf1;
+    --cream-dim: #8a95a3;
+    --fire: #e05c44;
+  }
+
+  .reveal-viewport {
+    background: linear-gradient(160deg, var(--bg-dark) 0%, #131f2e 50%, var(--bg-mid) 100%);
+  }
+
+  .reveal {
+    font-family: 'Inter', sans-serif;
+    color: var(--cream);
+  }
+
+  .reveal h1, .reveal h2, .reveal h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--accent-light);
+    text-transform: none;
+    letter-spacing: 0.01em;
+  }
+
+  .reveal h1 { font-size: 1.8em; font-weight: 900; }
+  .reveal h2 { font-size: 1.25em; font-weight: 700; }
+  .reveal h3 { font-size: 1em; font-weight: 700; }
+
+  .reveal p, .reveal li {
+    font-weight: 300;
+    line-height: 1.5;
+    font-size: 0.7em;
+  }
+
+  .reveal ul { list-style: none; padding-left: 0; }
+  .reveal ul li::before {
+    content: "—";
+    color: var(--accent);
+    margin-right: 0.5em;
+  }
+
+  .reveal .accent { color: var(--accent); }
+  .reveal .fire { color: var(--fire); }
+  .reveal .dim { color: var(--cream-dim); font-size: 0.7em; }
+
+  .reveal .big-emoji { font-size: 2.5em; margin-bottom: 0.2em; }
+  .reveal .stamp {
+    display: inline-block;
+    border: 3px solid var(--fire);
+    color: var(--fire);
+    padding: 0.2em 0.6em;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.3em;
+    transform: rotate(-5deg);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .reveal .detail-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.3em 1em;
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 0.8em;
+  }
+  .reveal .detail-grid .label {
+    color: var(--accent);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .reveal .groomsman-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3em;
+  }
+  .reveal .groomsman-card img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+  }
+  .reveal .groomsman-card .placeholder-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    background: var(--bg-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+  }
+  .reveal .groomsman-card .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1em;
+    color: var(--accent-light);
+    font-weight: 700;
+  }
+  .reveal .groomsman-card .connection {
+    color: var(--cream-dim);
+    font-size: 0.6em;
+    font-style: italic;
+  }
+  .reveal .groomsman-card .bio {
+    font-size: 0.65em;
+    max-width: 500px;
+  }
+  .reveal .groomsman-card .superlative {
+    color: var(--accent);
+    font-size: 0.75em;
+    font-weight: 600;
+  }
+
+  .reveal .divider {
+    width: 80px;
+    height: 2px;
+    background: var(--accent);
+    margin: 0.3em auto;
+  }
+
+  .reveal .cabin-list {
+    text-align: left;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+
+  .reveal a { color: var(--accent); }
+  .reveal a:hover { color: var(--accent-light); }
+
+  .reveal .progress span { background: var(--accent); }
+  .reveal .controls { color: var(--accent); }
+
+  .swipe-hint {
+    display: none;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+
+  @media (max-width: 768px) {
+    .swipe-hint {
+      display: block;
+      color: var(--cream-dim);
+      font-size: 1.5em;
+      margin-top: 0.5em;
+    }
+    .swipe-hint span {
+      display: inline-block;
+      animation: bounce 1.5s ease infinite;
+      font-size: 3em;
+    }
+
+    /* Typography - scale everything up */
+    .reveal h1 { font-size: 3.5em; }
+    .reveal h2 { font-size: 2.8em; }
+    .reveal h3 { font-size: 2.2em; }
+    .reveal p, .reveal li { font-size: 1.6em; line-height: 1.4; }
+    .reveal .dim { font-size: 1.3em; }
+    .reveal .big-emoji { font-size: 5em; }
+    .reveal .stamp { font-size: 2.4em; }
+    .reveal .divider { margin: 0.6em auto; }
+
+    /* Detail grids - single column, large text */
+    .reveal .detail-grid {
+      grid-template-columns: 1fr;
+      gap: 0.1em 0;
+      font-size: 1.2em;
+    }
+    .reveal .detail-grid .label {
+      text-align: left;
+      margin-top: 0.3em;
+    }
+
+    /* Ingredients list */
+    .reveal .cabin-list { max-width: 100%; }
+    .reveal .cabin-list li { font-size: 1.5em; }
+
+    /* Cabin photos - stack vertically, full width */
+    .reveal .cabin-photos {
+      flex-direction: column;
+      align-items: center;
+    }
+    .reveal .cabin-photos img {
+      max-height: none !important;
+      width: 85% !important;
+    }
+
+    /* Pros/cons - stack vertically, map full width */
+    .reveal .pros-cons {
+      flex-direction: column !important;
+    }
+    .reveal .pros-cons .map-col {
+      min-width: unset !important;
+    }
+    .reveal .pros-cons .map-col img {
+      max-height: none !important;
+      width: 90% !important;
+    }
+    .reveal .pros-cons p { font-size: 1.2em; }
+    .reveal .pros-cons li { font-size: 1.1em; }
+
+    /* Groomsman cards - larger photos and text */
+    .reveal .groomsman-card img {
+      width: 350px;
+      height: 350px;
+    }
+    .reveal .groomsman-card .name { font-size: 2.4em; }
+    .reveal .groomsman-card .connection { font-size: 1.3em; }
+    .reveal .groomsman-card .bio { font-size: 1.4em; max-width: 100%; }
+
+    /* Spongebob - fill the slide */
+    .reveal .spongebob {
+      width: 90% !important;
+      max-height: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ==================== INTRO ==================== -->
+    <section>
+      <div class="big-emoji">💍</div>
+      <h2>I'm Getting Married.</h2>
+      <div class="divider"></div>
+      <p>And I need you in my corner.</p>
+      <div class="swipe-hint"><span>&darr;</span></div>
+    </section>
+
+    <section>
+      <div class="stamp">Will You Be One of<br>My Groomsmen?</div>
+      <br><br>
+      <p>Let me tell you what you'd be signing up for.</p>
+    </section>
+
+    <!-- ==================== WEDDING DETAILS ==================== -->
+    <section>
+      <h2>The Wedding</h2>
+      <div class="divider"></div>
+      <p class="dim">What you need to know</p>
+    </section>
+
+    <section>
+      <h3>The Details</h3>
+      <div class="divider"></div>
+      <div class="detail-grid">
+        <span class="label">Date</span>
+        <span>April 15th, 2027</span>
+        <span class="label">Venue</span>
+        <span><a href="https://www.monroestreetabbey.com/" target="_blank">Monroe Street Abbey &#x1F517;</a></span>
+        <span class="label">Size</span>
+        <span>~40 people &mdash; family & close friends only</span>
+        <span class="label">Dress Code</span>
+        <span>TBD &mdash; no matching suits. Maybe matching colors.</span>
+      </div>
+    </section>
+
+    <!-- ==================== BACHELOR PARTY ==================== -->
+    <section>
+      <h2>The Bachelor Party</h2>
+      <div class="divider"></div>
+      <p class="dim">A concept of a plan</p>
+    </section>
+
+    <section>
+      <h3>The Vision</h3>
+      <div class="divider"></div>
+      <div class="detail-grid">
+        <span class="label">When</span>
+        <span>January / February 2027</span>
+        <span class="label">Where</span>
+        <span>Somewhere that feels isolated, cold, and surrounded by nature</span>
+        <span class="label">Vibe</span>
+        <span>Some combination of adventure, relaxation, and alcohol</span>
+        <span class="label">Cost</span>
+        <span>Reasonable &mdash; Trevor is <em>definitely</em> going to contribute</span>
+        <span class="label">Pressure</span>
+        <span>None &mdash; do whatever you want, skip whatever you want</span>
+      </div>
+    </section>
+
+    <section>
+      <h3>The Ingredients</h3>
+      <div class="divider"></div>
+      <p class="dim">Elements I'm looking for &mdash; not all required</p>
+      <div class="cabin-list">
+        <ul>
+          <li>Beer</li>
+          <li>Beer pong</li>
+          <li>Hiking</li>
+          <li>Home-cooked meals</li>
+          <li>Hot tub</li>
+          <li>Nintendo Switch games</li>
+          <li>No shame</li>
+          <li>Other nature activities</li>
+          <li>Rage cage</li>
+          <li>Skiing</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==================== EXPERIENCES ==================== -->
+    <section>
+      <h2>The Experiences</h2>
+      <div class="divider"></div>
+      <p class="dim">Trip possibilities</p>
+    </section>
+
+    <section>
+      <h3>Greater Yellowstone Ecosystem</h3>
+      <div class="divider"></div>
+      <div class="cabin-photos" style="display: flex; gap: 0.8em; justify-content: center; margin-top: 0.5em; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <a href="https://www.airbnb.com/rooms/1050759769168815539?check_in=2026-10-15&check_out=2026-10-20&guests=1&adults=8&s=67&unique_share_id=5aaf08f8-9369-4341-b2fc-403f4bbe685b" target="_blank">
+            <img src="images/Cabin_tetonia_frontside.avif" style="max-height: 200px; border-radius: 8px;">
+          </a>
+          <p class="dim"><a href="https://www.airbnb.com/rooms/1050759769168815539?check_in=2026-10-15&check_out=2026-10-20&guests=1&adults=8&s=67&unique_share_id=5aaf08f8-9369-4341-b2fc-403f4bbe685b" target="_blank">Tetonia &#x1F517;</a></p>
+        </div>
+        <div style="text-align: center;">
+          <a href="https://www.airbnb.com/rooms/567310746640007808?check_in=2026-10-04&check_out=2026-10-09&guests=1&adults=8&s=67&unique_share_id=1e23b381-7d53-4f0c-83ed-991a53516d6f" target="_blank">
+            <img src="images/Cabin_Victor.avif" style="max-height: 200px; border-radius: 8px;">
+          </a>
+          <p class="dim"><a href="https://www.airbnb.com/rooms/567310746640007808?check_in=2026-10-04&check_out=2026-10-09&guests=1&adults=8&s=67&unique_share_id=1e23b381-7d53-4f0c-83ed-991a53516d6f" target="_blank">Victor &#x1F517;</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h3>Greater Yellowstone Ecosystem</h3>
+      <div class="divider"></div>
+      <div class="pros-cons" style="display: flex; gap: 1.5em; justify-content: center; flex-wrap: wrap; text-align: left; margin: 0 auto;">
+        <div style="flex: 1; min-width: 200px;">
+          <p class="accent" style="font-weight: 600; margin-bottom: 0.2em;">Advantages</p>
+          <ul>
+            <li>Checks all the boxes</li>
+            <li>Access to multiple national parks (Yellowstone, Grand Teton, etc.)</li>
+          </ul>
+          <p class="fire" style="font-weight: 600; margin-bottom: 0.2em; margin-top: 0.5em;">Considerations</p>
+          <ul>
+            <li>Four wheel drive required</li>
+            <li>Definitely cold</li>
+            <li>Probably would need to road trip (some could fly in, but we'd need to haul in everything)</li>
+          </ul>
+        </div>
+        <div class="map-col" style="flex: 1; min-width: 250px; display: flex; align-items: center; justify-content: center;">
+          <img src="images/roadtrip_to_yellowstone.png" style="max-height: 550px; max-width: 100%; border-radius: 8px;">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MEET THE GROOMSMEN ==================== -->
+    <section>
+      <h2>Meet the Crew</h2>
+      <div class="divider"></div>
+      <p class="dim">Because not everyone knows each other yet</p>
+    </section>
+
+    <section>
+      <div class="groomsman-card">
+        <img src="images/arnie_hernandez.jpg" alt="Arnie Hernandez">
+        <span class="name">Arnie Hernandez</span>
+        <span class="connection">High school</span>
+        <div class="divider"></div>
+        <p class="bio">Likes: One Piece, LA Dodgers, Team Mexico</p>
+        <p class="dim">(480) 620-6887</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="groomsman-card">
+        <img src="images/ashik_perriera.png" alt="Ashik Perriera">
+        <span class="name">Ashik Perriera</span>
+        <span class="connection">Junior high bus stop</span>
+        <div class="divider"></div>
+        <p class="bio">Likes: Baking, Mixology, Futurama, Single Moms</p>
+        <p class="dim">(480) 363-6551</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="groomsman-card">
+        <img src="images/connor_mcauliffe.png" alt="Connor McAuliffe">
+        <span class="name">Connor McAuliffe</span>
+        <span class="connection">ASU</span>
+        <div class="divider"></div>
+        <p class="bio">Likes: NY Giants, Beer, Backwards Hats</p>
+        <p class="dim">(480) 392-8318</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="groomsman-card">
+        <img src="images/daniel_eckstein.jpg" alt="Daniel Eckstein">
+        <span class="name">Daniel Eckstein</span>
+        <span class="connection">ASU / Peer Advisors</span>
+        <div class="divider"></div>
+        <p class="bio">Likes: The Colts, Any Type of Competition, Raising Cane's</p>
+        <p class="dim">(480) 772-0437</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="groomsman-card">
+        <img src="images/evan_debock.png" alt="Evan DeBock">
+        <span class="name">Evan DeBock</span>
+        <span class="connection">Cousin / known since birth</span>
+        <div class="divider"></div>
+        <p class="bio">Likes: Chicago Bears, Cubs, Nonprofit Work</p>
+        <p class="dim">(774) 280-2280</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="groomsman-card">
+        <img src="images/joey_margolias.png?v=2" alt="Joey Margolias">
+        <span class="name">Joey Margolias</span>
+        <span class="connection">ASU / Peer Advisors</span>
+        <div class="divider"></div>
+        <p class="bio">Likes: RuPaul's Drag Race, Baltimore Ravens, Gambling</p>
+        <p class="dim">(602) 501-2667</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="groomsman-card">
+        <img src="images/trevor_biggerstaff.png" alt="Trevor Biggerstaff">
+        <span class="name">Trevor Biggerstaff</span>
+        <span class="connection">Grew up on the same street since preschool</span>
+        <div class="divider"></div>
+        <p class="bio">Likes: Swiss Army Man, Untitled Goose Game</p>
+        <p class="dim">(847) 977-9530</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="groomsman-card">
+        <img src="images/trey_pettis.png" alt="Trey Pettis">
+        <span class="name">Trey Pettis</span>
+        <span class="connection">Junior high bus stop</span>
+        <div class="divider"></div>
+        <p class="bio">Likes: DayZ, Old School RuneScape, Dos Equis</p>
+        <p class="dim">(480) 294-8795</p>
+      </div>
+    </section>
+
+    <!-- ==================== CLOSING ==================== -->
+    <section>
+      <h2>The Important Dates</h2>
+      <div class="divider"></div>
+      <div class="detail-grid">
+        <span class="label">Bach Party</span>
+        <span>Jan / Feb 2027</span>
+        <span class="label">Wedding</span>
+        <span>April 15, 2027</span>
+      </div>
+    </section>
+
+    <section>
+      <img class="r-stretch spongebob" src="images/spongebob_shitshow.jpg?v=2" style="border-radius: 8px; object-fit: contain;">
+    </section>
+
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    controls: true,
+    progress: true,
+    center: true,
+    transition: 'slide',
+    width: 960,
+    height: 700,
+    margin: 0.04,
+    scrollActivationWidth: 768,
+    scrollSnap: 'mandatory',
+    scrollProgress: 'auto',
+    scrollLayout: 'full'
+  });
+</script>
+</body>
+</html>
